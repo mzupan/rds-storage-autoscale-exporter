@@ -2,7 +2,7 @@
 ARG ARCH
 
 # Stage 1: Building the application
-FROM --platform=linux/${ARCH} golang:1.21 as builder
+FROM --platform=${ARCH} golang:1.21 as builder
 
 # Set the working directory inside the container
 WORKDIR /app
