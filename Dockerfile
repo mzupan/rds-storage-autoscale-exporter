@@ -1,8 +1,5 @@
-# Define build argument for architecture
-ARG ARCH
-
 # Stage 1: Building the application
-FROM --platform=${ARCH} golang:1.21 as builder
+FROM golang:1.21 as builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -17,7 +14,7 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=$ARCH go build -a -installsuffix cgo -o exporter .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o exporter .
 
 # Stage 2: Setup the scratch container
 FROM scratch
@@ -32,4 +29,4 @@ EXPOSE 9761
 USER 59000:59000
 
 # Command to run the executable
-ENTRYPOINT ["/exporter"]%
+ENTRYPOINT ["/exporter"]
