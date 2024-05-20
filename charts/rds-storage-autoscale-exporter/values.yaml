@@ -32,7 +32,7 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 9761
 
 ingress:
   enabled: false
@@ -63,3 +63,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+serviceMonitor:
+  # -- enables servicemonitor for server monitoring
+  enabled: false
+  # -- Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
+  labels: {}
+  # -- provides the possibility to override the jobName if needed
+  # jobLabel: fancy-pyrra-server
