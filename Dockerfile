@@ -1,6 +1,9 @@
 # Stage 1: Building the application
 FROM golang:1.21 as builder
 
+# Install ca-certificates package
+RUN apt-get update && apt-get install -y ca-certificates
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -18,6 +21,12 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o exporter .
 
 # Stage 2: Setup the scratch container
 FROM scratch
+
+# Copy the CA certificates from the certs stage
+COPY --from=builder /etc/ssl/certs /etc/ssl/certs
+
+# Set the SSL_CERT_FILE environment variable if needed
+ENV SSL_CERT_FILE /etc/ssl/certs/ca-certificates.crt
 
 # Copy the binary from the builder stage
 COPY --from=builder /app/exporter /exporter

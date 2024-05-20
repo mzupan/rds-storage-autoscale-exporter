@@ -41,7 +41,7 @@ func init() {
 }
 
 func loadAWSConfig() aws.Config {
-	region := os.Getenv("us-east-1")
+	region := "us-east-1"
 	if os.Getenv("AWS_REGION") != "" {
 		region = os.Getenv("AWS_REGION")
 	}
