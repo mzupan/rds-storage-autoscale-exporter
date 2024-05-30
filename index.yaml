@@ -3,6 +3,16 @@ entries:
   rds-storage-autoscale-exporter:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-05-30T20:05:50.390929841Z"
+    description: A Helm chart for the RDS Storage Autoscale Exporter
+    digest: b0e4b2e9d04d4a158ddcf28e20bf8fe10da66a50d63ab15f66dee9ded7308d80
+    name: rds-storage-autoscale-exporter
+    type: application
+    urls:
+    - https://github.com/mzupan/rds-storage-autoscale-exporter/releases/download/rds-storage-autoscale-exporter-0.2.0/rds-storage-autoscale-exporter-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-05-30T00:17:55.208560328Z"
     description: A Helm chart for the RDS Storage Autoscale Exporter
     digest: 762f4e0514308e132a02e1580feabe01f62fa45f72f1e175784b6856453a2688
@@ -41,4 +51,4 @@ entries:
     urls:
     - https://github.com/mzupan/rds-storage-autoscale-exporter/releases/download/rds-storage-autoscale-exporter-0.1.0/rds-storage-autoscale-exporter-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-30T00:17:55.208578041Z"
+generated: "2024-05-30T20:05:50.39095584Z"
