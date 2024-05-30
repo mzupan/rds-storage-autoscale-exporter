@@ -10,9 +10,11 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
+	"github.com/aws/aws-sdk-go-v2/credentials/stscreds"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
 	"github.com/aws/aws-sdk-go-v2/service/rds"
+	"github.com/aws/aws-sdk-go-v2/service/sts"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -68,6 +70,13 @@ func loadAWSConfig() aws.Config {
 	cfg, err := config.LoadDefaultConfig(context.TODO(), cfgOptions...)
 	if err != nil {
 		log.Fatalf("unable to load SDK config: %v", err)
+	}
+
+	// Check if AWS_ASSUME_ROLE is set
+	if roleArn := os.Getenv("AWS_ASSUME_ROLE"); roleArn != "" {
+		stsClient := sts.NewFromConfig(cfg)
+		creds := stscreds.NewAssumeRoleProvider(stsClient, roleArn)
+		cfg.Credentials = aws.NewCredentialsCache(creds)
 	}
 
 	return cfg
